@@ -1,5 +1,10 @@
 package Map
 
 type Cell struct {
-	Type string
+	Type tCellType
+}
+
+func (c *Cell) Init(arg tCellType) (out *Cell) {
+	out.Type = arg
+	return
 }

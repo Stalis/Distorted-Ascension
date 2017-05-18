@@ -4,7 +4,7 @@
     "version": "0.1.0",
     "command": "go",
     "isShellCommand": true,
-    "problemMatcher":[
+    "problemMatcher": [
         "$go"
     ],
     "windows": {
@@ -16,13 +16,24 @@
     "osx": {
         "args": ["build", "-v", "-o", "bin/game"]
     },
-
     "tasks": [
+        {
+            "taskName": "build",
+            "isBuildCommand": true,
+            "suppressTaskName": true
+        },
         {
             "taskName": "install engine",
             "suppressTaskName": true,
             "command": "go",
             "args": ["install", "-v", "./Engine/Map", "./Engine"]
+        },
+        {
+            "taskName": "regenerate",
+            "suppressTaskName": true,
+            "args": [
+                "generate", "-v", "./Engine/Map", "./Engine"
+            ]
         }
     ],
 
