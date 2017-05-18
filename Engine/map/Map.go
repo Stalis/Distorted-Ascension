@@ -1,9 +1,9 @@
 package Map
 
-type GameMap struct {
+type WorldMap struct {
 	Chunks [MAP_CHUNKS]Chunk
 }
 
-func (m *GameMap) Build() {
+func (m *WorldMap) Build() {
 
 }

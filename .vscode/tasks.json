@@ -16,5 +16,15 @@
     "osx": {
         "args": ["build", "-v", "-o", "bin/game"]
     },
+
+    "tasks": [
+        {
+            "taskName": "install engine",
+            "suppressTaskName": true,
+            "command": "go",
+            "args": ["install", "-v", "./Engine/Map", "./Engine"]
+        }
+    ],
+
     "showOutput": "always"
 }
