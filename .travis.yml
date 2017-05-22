@@ -9,4 +9,4 @@ matrix:
     - go: master
   fast_finish: true
 install:
-  - // dummy
+  - #dummy
