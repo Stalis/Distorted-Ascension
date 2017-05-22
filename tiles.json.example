@@ -1,0 +1,16 @@
+[{
+        "Name": "Land1",
+        "Prevalence": 50,
+        "Source": "@"
+    },
+    {
+        "Name": "Land2",
+        "Prevalence": 70,
+        "Source": "#"
+    },
+    {
+        "Name": "Land3",
+        "Prevalence": 20,
+        "Source": "%"
+    }
+]
