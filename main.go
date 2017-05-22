@@ -1,35 +1,9 @@
 package main
 
 import (
-	"runtime"
-
-	"github.com/Stalis/Distorted-Ascension/Engine"
-	"github.com/veandco/go-sdl2/sdl"
+	"github.com/Stalis/Distorted-Ascension/DEEngine"
 )
 
 func main() {
-	runtime.LockOSThread() // Fix SDL2 multi-thread troubles
-
-	Engine.Start()
-	sdl.Init(sdl.INIT_EVERYTHING)
-
-	window, err := sdl.CreateWindow(
-		"test",
-		sdl.WINDOWPOS_UNDEFINED,
-		sdl.WINDOWPOS_UNDEFINED,
-		800, 600, sdl.WINDOW_SHOWN,
-	)
-	defer window.Destroy()
-
-	surface, err := window.GetSurface()
-	if err != nil {
-		panic(err)
-	}
-
-	rect := sdl.Rect{0, 0, 200, 200}
-	surface.FillRect(&rect, 0xffff0000)
-	window.UpdateSurface()
-
-	sdl.Delay(1000)
-	sdl.Quit()
+	DEEngine.Start()
 }
