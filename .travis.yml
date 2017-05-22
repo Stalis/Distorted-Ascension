@@ -1,5 +1,13 @@
+
+sudo: false
 language: go
 go:
   - 1.7.x
   - 1.8.x
-- master
+  - master
+matrix:
+  allow_failures:
+    - go: master
+  fast_finish: true
+install:
+  - go get github.com/Stalis/Distorted-Ascension/DEEngine
