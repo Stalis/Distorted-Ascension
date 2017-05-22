@@ -99,30 +99,14 @@ function cChunk:new()
       return true
     end
     
-    function public:DrawMap()
-      love.graphics.setBackgroundColor(0,0,0)
-      if #private.Map == 0 then return nil end
-      local coords = {x = 1, y = 1}
-      for y, row in pairs(private.Map) do
-        for x, tile in pairs(row) do
-          v = tile:GetSource()
-          if     v == '#' then love.graphics.setColor(144, 173, 0)
-          elseif v == '@' then love.graphics.setColor(78, 88, 155)
-          elseif v == '%' then love.graphics.setColor(209, 178, 200)
-          end
-          love.graphics.rectangle('fill', coords.x, coords.y, 16, 16)
-          coords.x = coords.x + 17
-        end
-        coords.x = 1
-        coords.y = coords.y + 17
-      end
-      return true
-    end
+
   
   setmetatable(public, self)
   self.__index = self
   return public
 end
+
+
 
 eTileTypes[1] = cTileType:new(sTileTypes[1], 50, 1)
 eTileTypes[2] = cTileType:new(sTileTypes[2], 130, 2)
@@ -130,6 +114,28 @@ eTileTypes[3] = cTileType:new(sTileTypes[3], 20, 3)
 
 local Chunk = cChunk:new()
 Chunk:Generate()
-Chunk:PrintMap()
 
-function love.draw() pcall(Chunk:DrawMap()) end 
+--#################################
+-- Code, related to love engine
+function DrawMap(Chunk)
+  love.graphics.setBackgroundColor(0,0,0)
+  local Map = Chunk:GetMap()
+  if #Map == 0 then return nil end
+  local coords = {x = 1, y = 1}
+  for y, row in pairs(Map) do
+    for x, tile in pairs(row) do
+      v = tile:GetSource()
+      if     v == '#' then love.graphics.setColor(144, 173, 0)
+      elseif v == '@' then love.graphics.setColor(78, 88, 155)
+      elseif v == '%' then love.graphics.setColor(209, 178, 200)
+      end
+      love.graphics.rectangle('fill', coords.x, coords.y, 16, 16)
+      coords.x = coords.x + 17
+    end
+    coords.x = 1
+    coords.y = coords.y + 17
+  end
+  return true
+end
+
+function love.draw() pcall(DrawMap(Chunk)) end 
