@@ -8,4 +8,8 @@ func Start() {
 	var Chunk sChunk
 	Chunk.GetDataFromCSV(tt)
 	Chunk.Print()
+
+	var Graphics sGraphics
+	Graphics.Chunk = Chunk.GetMap()
+	Graphics.start()
 }
