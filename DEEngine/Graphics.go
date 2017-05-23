@@ -16,7 +16,6 @@ type sGraphics struct {
 }
 
 func (g *sGraphics) update(screen *ebiten.Image) error {
-	lol := g.Tiles
 	//screen.Fill(color.NRGBA{0x00, 0x00, 0x00, 0xff})
 	ebitenutil.DebugPrint(screen, "MapTest")
 	counter := 0
