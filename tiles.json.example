@@ -1,16 +1,35 @@
-[{
-        "Name": "Land1",
-        "Prevalence": 50,
-        "Source": "@"
+[
+  {
+    "Name": "Land1",
+    "Prevalence": 50,
+    "Color":{
+      "R": 78,
+      "G": 88,
+      "B": 155,
+      "A": 255
     },
-    {
-        "Name": "Land2",
-        "Prevalence": 70,
-        "Source": "#"
+    "Source": "@"
+  },
+  {
+    "Name": "Land2",
+    "Prevalence": 70,
+    "Color":{
+      "R": 144,
+      "G": 173,
+      "B": 0,
+      "A": 255
     },
-    {
-        "Name": "Land3",
-        "Prevalence": 20,
-        "Source": "%"
-    }
+    "Source": "#"
+  },
+  {
+    "Name": "Land3",
+    "Prevalence": 20,
+    "Color":{
+      "R": 209,
+      "G": 178,
+      "B": 200,
+      "A": 255
+    },
+    "Source": "%"
+  }
 ]
