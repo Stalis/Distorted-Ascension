@@ -2,54 +2,70 @@ package DEEngine
 
 import (
 	"image/color"
+	"log"
 
 	"github.com/hajimehoshi/ebiten"
 	"github.com/hajimehoshi/ebiten/ebitenutil"
 )
 
-type sGraphics struct {
-	Chunk [32][32]sTile
-	Tiles [1024]struct {
-		Img  *ebiten.Image
-		opts *ebiten.DrawImageOptions
-	}
+const (
+	TILE_DIMENSION = 16
+)
+
+type sGTile struct {
+	X     float64
+	Y     float64
+	Color color.NRGBA64
 }
 
-func (g *sGraphics) update(screen *ebiten.Image) error {
-	//screen.Fill(color.NRGBA{0x00, 0x00, 0x00, 0xff})
-	ebitenutil.DebugPrint(screen, "MapTest")
+type sGraphics struct {
+	Tiles [1024]sGTile
+}
+
+func (g *sGraphics) LoadChunk(chunk [32][32]sTile) error {
 	counter := 0
-	//currX := 1.0
-	//currY := 1.0
-	for x, row := range g.Chunk {
+	for x, row := range chunk {
 		for y, tile := range row {
-			cell, err := ebiten.NewImage(16, 16, ebiten.FilterNearest)
-			errcheck(err)
-			switch tile.Source {
-			case "@":
-				cell.Fill(color.NRGBA64{R: 78, G: 88, B: 155, A: 127})
-			case "#":
-				cell.Fill(color.NRGBA64{R: 144, G: 173, B: 0, A: 127})
-			case "%":
-				cell.Fill(color.NRGBA64{R: 209, G: 178, B: 200, A: 127})
+			if len(tile.Source) == 0 {
+				log.Panicf("Tile on x=%d y=%d is empty", x, y)
 			}
-			opts := &ebiten.DrawImageOptions{}
-			opts.GeoM.Translate(float64(x*16), float64(y*16))
-			//currY += 16
-			a := &struct {
-				Img  *ebiten.Image
-				opts *ebiten.DrawImageOptions
-			}{
-				cell,
-				opts,
+			currColor := color.NRGBA64{}
+			currColor.A = 255
+			switch tile.Source {
+			case "#":
+				currColor.R = 144
+				currColor.G = 173
+				currColor.B = 0
+			case "@":
+				currColor.R = 78
+				currColor.G = 88
+				currColor.B = 155
+			case "%":
+				currColor.R = 209
+				currColor.G = 178
+				currColor.B = 200
+			}
+			g.Tiles[counter] = sGTile{
+				X:     float64(x * TILE_DIMENSION),
+				Y:     float64(y * TILE_DIMENSION),
+				Color: currColor,
 			}
 			counter++
 		}
-		//currX += 16
 	}
+	return nil
+}
+
+func (g *sGraphics) update(screen *ebiten.Image) error {
+	screen.Fill(color.NRGBA{0x00, 0x00, 0x00, 0xff})
+	ebitenutil.DebugPrint(screen, "MapTest")
 
 	for _, tile := range g.Tiles {
-		screen.DrawImage(tile.Img, tile.opts)
+		cell, _ := ebiten.NewImage(TILE_DIMENSION, TILE_DIMENSION, ebiten.FilterNearest)
+		cell.Fill(tile.Color)
+		opts := &ebiten.DrawImageOptions{}
+		opts.GeoM.Translate(tile.X, tile.Y)
+		screen.DrawImage(cell, opts)
 	}
 	return nil
 }

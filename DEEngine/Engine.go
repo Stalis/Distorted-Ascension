@@ -10,6 +10,6 @@ func Start() {
 	Chunk.Print()
 
 	var Graphics sGraphics
-	Graphics.Chunk = Chunk.GetMap()
+	Graphics.LoadChunk(Chunk.GetMap())
 	Graphics.start()
 }
