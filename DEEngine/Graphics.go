@@ -31,21 +31,8 @@ func (g *sGraphics) LoadChunk(chunk [32][32]sTile) error {
 				log.Panicf("Tile on x=%d y=%d is empty", x, y)
 			}
 			currColor := color.RGBA{}
-			currColor.A = 255
-			switch tile.Source {
-			case "#":
-				currColor.R = 144
-				currColor.G = 173
-				currColor.B = 0
-			case "@":
-				currColor.R = 78
-				currColor.G = 88
-				currColor.B = 155
-			case "%":
-				currColor.R = 209
-				currColor.G = 178
-				currColor.B = 200
-			}
+			currColor = tile.Color
+
 			cell, err := ebiten.NewImage(TILE_DIMENSION, TILE_DIMENSION, ebiten.FilterNearest)
 			errcheck(err)
 			cell.Fill(currColor)

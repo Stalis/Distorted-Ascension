@@ -18,9 +18,15 @@ func errcheck(err error) {
 }
 
 type sTileType struct {
-	Name       string `json:"name,omitempty"`
-	Prevalence int32  `json:"prevalence,omitempty"`
-	Source     string `json:"source,omitempty"`
+	Name       string
+	Prevalence int32
+	Color      struct {
+		R uint8
+		G uint8
+		B uint8
+		A uint8
+	}
+	Source string
 }
 
 type sTile struct {
