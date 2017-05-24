@@ -8,8 +8,27 @@ matrix:
   allow_failures:
     - go: master
   fast_finish: true
+  
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - libglew-dev # required by headless-gl.
+      - libgles2-mesa-dev
+      - libopenal-dev
+      - libalut-dev
+      - libxxf86vm-dev
+      - libxrandr-dev
+  
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
+  
 install:
-  - go get github.com/Stalis/Distorted-Ascension/DEEngine
+  - go get -t -v ./...
+  
 branches:
   only:
     - master
