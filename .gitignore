@@ -21,3 +21,4 @@ bin/
 
 # IDE 
 .vscode/
+.idea/
