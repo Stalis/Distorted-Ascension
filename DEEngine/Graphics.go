@@ -15,7 +15,8 @@ const (
 type sGTile struct {
 	X     float64
 	Y     float64
-	Color color.NRGBA64
+	Color color.RGBA
+	Img   *ebiten.Image
 }
 
 type sGraphics struct {
@@ -29,7 +30,7 @@ func (g *sGraphics) LoadChunk(chunk [32][32]sTile) error {
 			if len(tile.Source) == 0 {
 				log.Panicf("Tile on x=%d y=%d is empty", x, y)
 			}
-			currColor := color.NRGBA64{}
+			currColor := color.RGBA{}
 			currColor.A = 255
 			switch tile.Source {
 			case "#":
@@ -45,11 +46,16 @@ func (g *sGraphics) LoadChunk(chunk [32][32]sTile) error {
 				currColor.G = 178
 				currColor.B = 200
 			}
+			cell, err := ebiten.NewImage(TILE_DIMENSION, TILE_DIMENSION, ebiten.FilterNearest)
+			errcheck(err)
+			cell.Fill(currColor)
 			g.Tiles[counter] = sGTile{
-				X:     float64(x * TILE_DIMENSION),
-				Y:     float64(y * TILE_DIMENSION),
+				X:     float64((x * TILE_DIMENSION) + x),
+				Y:     float64((y * TILE_DIMENSION) + y),
 				Color: currColor,
+				Img:   cell,
 			}
+
 			counter++
 		}
 	}
@@ -58,19 +64,20 @@ func (g *sGraphics) LoadChunk(chunk [32][32]sTile) error {
 
 func (g *sGraphics) update(screen *ebiten.Image) error {
 	screen.Fill(color.NRGBA{0x00, 0x00, 0x00, 0xff})
-	ebitenutil.DebugPrint(screen, "MapTest")
-
+	if ebiten.IsRunningSlowly() {
+		return nil
+	}
 	for _, tile := range g.Tiles {
-		cell, _ := ebiten.NewImage(TILE_DIMENSION, TILE_DIMENSION, ebiten.FilterNearest)
-		cell.Fill(tile.Color)
 		opts := &ebiten.DrawImageOptions{}
 		opts.GeoM.Translate(tile.X, tile.Y)
-		screen.DrawImage(cell, opts)
+		//tile.Img.Fill(tile.Color)
+		screen.DrawImage(tile.Img, opts)
 	}
+	ebitenutil.DebugPrint(screen, "MapTest")
 	return nil
 }
 
 func (g *sGraphics) start() {
-	err := ebiten.Run(g.update, (16*16)+16, (16*16)+16, 2, "MapTest")
+	err := ebiten.Run(g.update, (16*32)+32, (16*32)+32, 1, "MapTest")
 	errcheck(err)
 }
