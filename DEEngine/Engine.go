@@ -7,7 +7,6 @@ func Start() {
 
 	var Chunk sChunk
 	Chunk.GetDataFromCSV(tt)
-	Chunk.Print()
 
 	var Graphics sGraphics
 	Graphics.LoadChunk(Chunk.GetMap())

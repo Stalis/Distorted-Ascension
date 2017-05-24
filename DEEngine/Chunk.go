@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/csv"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"strconv"
@@ -26,7 +25,6 @@ type sTileType struct {
 		B uint8
 		A uint8
 	}
-	Source string
 }
 
 type sTile struct {
@@ -43,16 +41,6 @@ type sChunk struct {
 
 func (s sChunk) GetMap() [32][32]sTile {
 	return s.Map
-}
-
-func (s *sChunk) Print() {
-	for _, row := range &s.Map {
-		srow := ""
-		for _, tile := range row {
-			srow += tile.Source + " "
-		}
-		fmt.Println(srow)
-	}
 }
 
 func (s *sChunk) GetDataFromCSV(types TileTypes) {

@@ -5,7 +5,6 @@ import (
 	"log"
 
 	"github.com/hajimehoshi/ebiten"
-	"github.com/hajimehoshi/ebiten/ebitenutil"
 )
 
 const (
@@ -27,7 +26,7 @@ func (g *sGraphics) LoadChunk(chunk [32][32]sTile) error {
 	counter := 0
 	for x, row := range chunk {
 		for y, tile := range row {
-			if len(tile.Source) == 0 {
+			if len(tile.Name) == 0 {
 				log.Panicf("Tile on x=%d y=%d is empty", x, y)
 			}
 			currColor := color.RGBA{}
@@ -60,7 +59,6 @@ func (g *sGraphics) update(screen *ebiten.Image) error {
 		//tile.Img.Fill(tile.Color)
 		screen.DrawImage(tile.Img, opts)
 	}
-	ebitenutil.DebugPrint(screen, "MapTest")
 	return nil
 }
 
