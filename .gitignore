@@ -19,6 +19,9 @@ bin/
 *.csv
 !*.example
 
+# macOS
+.DS_Store
+
 # IDE 
 .vscode/
 .idea/
