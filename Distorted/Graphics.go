@@ -56,7 +56,6 @@ func (g *sGraphics) update(screen *ebiten.Image) error {
 	for _, tile := range g.Tiles {
 		opts := &ebiten.DrawImageOptions{}
 		opts.GeoM.Translate(tile.X, tile.Y)
-		//tile.Img.Fill(tile.Color)
 		screen.DrawImage(tile.Img, opts)
 	}
 	return nil

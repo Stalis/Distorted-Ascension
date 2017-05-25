@@ -76,13 +76,8 @@ func GaussGen(length int) int {
 	for _, v := range weights {
 		weightSum += v
 	}
-
-	for _, v := range weights {
-		weightSum += v
-	}
 	random := rand.New(rand.NewSource(int64(time.Now().Nanosecond())))
 	r := random.Intn(weightSum)
-
 	currWeight := 0
 	for i, w := range weights {
 		if currWeight >= r {
