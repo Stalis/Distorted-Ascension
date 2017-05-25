@@ -1,4 +1,4 @@
-package DEEngine
+package Distorted
 
 func Start() {
 
@@ -6,7 +6,8 @@ func Start() {
 	tt.GetDataFromJSON()
 
 	var Chunk sChunk
-	Chunk.GetDataFromCSV(tt)
+	//Chunk.GetDataFromCSV(tt)
+	Chunk.GetDataFromGenerator(1,2,3,tt)
 
 	var Graphics sGraphics
 	Graphics.LoadChunk(Chunk.GetMap())
