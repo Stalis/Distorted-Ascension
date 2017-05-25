@@ -1,4 +1,4 @@
-package DEEngine
+package Distorted
 
 import (
 	"bytes"
@@ -55,6 +55,12 @@ func (s *sChunk) GetDataFromCSV(types TileTypes) {
 			errcheck(err)
 		}
 	}
+}
+
+func (s *sChunk) GetDataFromGenerator(Gen, Surr, Env int, tt TileTypes) {
+	generator := NewGenerator(*NewTile(tt.types[Gen-1]), *NewTile(tt.types[Surr-1]), *NewTile(tt.types[Env-1]))
+	generator.Start()
+	s.Map = generator.MainChunk.Map
 }
 
 type TileTypes struct {
