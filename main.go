@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/Stalis/Distorted-Ascension/DEEngine"
+	"github.com/Stalis/Distorted-Ascension/Distorted"
 )
 
 func main() {
-	DEEngine.Start()
+	Distorted.Start()
 }

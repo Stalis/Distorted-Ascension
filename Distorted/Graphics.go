@@ -1,4 +1,4 @@
-package DEEngine
+package Distorted
 
 import (
 	"image/color"
